@@ -1,6 +1,7 @@
 import './css/styles.css';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import debounce from 'lodash.debounce';
+import { fetchCountries } from './js/fetchCountries';
 
 const DEBOUNCE_DELAY = 300;
 
@@ -9,20 +10,7 @@ const countryInfo = document.querySelector('.country-info');
 const searchBox = document.querySelector('#search-box');
 const body = document.querySelector('body');
 
-const BASE_URL = 'https://restcountries.com/v3.1/name/';
-const searchParams = new URLSearchParams({
-    fields: 'name,capital,population,flags,languages,',
-});
 
-const fetchCountries = (name) => {
-    return fetch(`${BASE_URL}${name}?${searchParams}`)
-        .then(response => {
-            if (response.status === 404) {
-                throw new Error(response.status);
-            }
-            return response.json();
-        });
-};
 
 countriesList.style.visibility = 'hidden';
 countryInfo.style.visibility = 'hidden';
